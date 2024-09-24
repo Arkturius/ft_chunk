@@ -16,17 +16,18 @@
 
 int	main(void)
 {
-	t_chunk		*vecs;
+	t_chunk		*floats;
 	float		tmp;
 	uint32_t	i;
 
-	vecs = ft_chunk_init("floats", sizeof(float));
+	floats = ft_chunk_init("floats", sizeof(float));
 	i = 0;
 	while (i < 1024)
 	{
 		tmp = 3.14 * i;
-		if (!ft_chunk_push(vecs, &tmp, sizeof(tmp)))
+		if (!ft_chunk_push(floats, &tmp, sizeof(tmp)))
 			break ;
 		i++;
 	}
+	ft_chunk_clear(floats, FT_CHUNK_FREE);
 }

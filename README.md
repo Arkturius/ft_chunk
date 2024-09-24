@@ -5,39 +5,33 @@ Small library implementation of memory chunks.
 ## Usage
 ```bash
 $ make # :)
+
+$ cc your_code.c ft_chunk.a -o your_code
 ```
-Then compile with ft_chunk.a
 
 ## Example
-Init a chunk of vectors
+Init a chunk of floats and fill them with multiples of PI
 
 ```c
 #include <stdint.h>
 
 #include <ft_chunk.h>
 
-typedef struct s_vec
+int	main(void)
 {
-	float	x;
-	float	y;
-	float	z;
-	float	w;
-}	t_vec;
-
-int main(void)
-{
-	t_chunk		*vecs;
-	t_vec		tmp;
+	t_chunk		*floats;
+	float		tmp;
 	uint32_t	i;
 
-	vecs = ft_chunk_init("vectors", sizeof(t_vec));
+	floats = ft_chunk_init("floats", sizeof(float));
 	i = 0;
-	while (i < 1024)
-	{	
-		tmp = (t_vec){0, 0, 0 ,0};
-		if (!ft_chunk_push(vecs, &tmp, sizeof(tmp)))
+	while (i < floats->capacity)
+	{
+		tmp = 3.14 * i;
+		if (!ft_chunk_push(floats, &tmp, sizeof(tmp)))
 			break ;
 		i++;
 	}
+	ft_chunk_clear(floats, FT_CHUNK_FREE);
 }
 ```
