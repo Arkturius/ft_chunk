@@ -1,4 +1,4 @@
-# ft_chunk (v 0.2)
+# ft_chunk (v 0.3)
 
 Small library implementation of memory chunks.
 
@@ -10,7 +10,7 @@ Small library implementation of memory chunks.
 ```bash
 $ make # :)
 
-$ cc your_code.c ft_chunk.a -o your_code
+$ cc your_code.c libchunk.a -o your_code
 ```
 
 ## Example

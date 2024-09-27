@@ -6,7 +6,7 @@
 #    By: rgramati <rgramati@student.42angouleme.fr  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/05 17:09:56 by rgramati          #+#    #+#              #
-#    Updated: 2024/09/27 01:58:48 by rgramati         ###   ########.fr        #
+#    Updated: 2024/09/27 02:13:48 by rgramati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 # Vars
 #
 
-LIBNAME		=	ft_chunk.a
+LIBNAME		=	libchunk.a
 
 SRC_DIR		:=	src
 
