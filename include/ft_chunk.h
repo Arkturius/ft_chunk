@@ -17,7 +17,15 @@
 
 /* ************************************************************************** */
 
-# define FT_CHUNK_DATA_CAP	4064
+# define FT_CHUNK_DATA_CAP	4032
+
+typedef struct s_chunk_iter
+{
+	void		*it;
+	void		*start;
+	void		*end;
+	uint32_t	index;
+}	t_chunk_iter;
 
 /**
  * @struct	s_chunk		Describes a memory chunk
@@ -29,12 +37,13 @@
  */
 typedef struct s_chunk
 {
-	uint32_t	capacity;
-	uint32_t	size;
-	uint32_t	alignment;
-	uint32_t	elem_size;
-	char		name[16];
-	uint8_t		data[FT_CHUNK_DATA_CAP];
+	uint32_t		capacity;
+	uint32_t		size;
+	uint32_t		alignment;
+	uint32_t		elem_size;
+	char			name[16];
+	t_chunk_iter	iterator;
+	uint8_t			data[FT_CHUNK_DATA_CAP];
 }	t_chunk;
 
 /**
@@ -77,6 +86,17 @@ void
 ft_chunk_clear(t_chunk *chunk, uint32_t flags);
 
 /**
+ * @brief	Get the element at a certain index on a memory chunk.
+ *
+ * @param		(chunk)		Chunk pointer.
+ * @param		(index)		The index.
+ *
+ * @returns	A pointer to this element (depending on chunk alignment);
+ */
+void
+*ft_chunk_at(t_chunk *chunk, uint32_t index);
+
+/**
  * @brief	Allocate space on a memory chunk for a new element.
  *
  * @param		(chunk)		Chunk pointer.
@@ -115,12 +135,10 @@ void
 *ft_chunk_pop(t_chunk *chunk, void *elem);
 
 /**
- * @brief	Displays a memory chunk.
  *
- * @param		(chunk)		Chunk pointer.
  */
 void
-ft_chunk_display(t_chunk *chunk);
+*ft_chunk_it_next(t_chunk *chunk);
 
 /* * UTILS ****************************************************************** */
 

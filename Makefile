@@ -6,7 +6,7 @@
 #    By: rgramati <rgramati@student.42angouleme.fr  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/05 17:09:56 by rgramati          #+#    #+#              #
-#    Updated: 2024/09/23 20:50:56 by rgramati         ###   ########.fr        #
+#    Updated: 2024/09/27 01:58:48 by rgramati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ OBJ_DIR		:=	build
 
 SRCS		:=	ft_chunk.c	\
 				utils.c		\
+				accessors.c
 
 SRCS		:=	$(addprefix $(SRC_DIR)/, $(SRCS))
 

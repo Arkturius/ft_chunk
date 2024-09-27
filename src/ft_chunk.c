@@ -23,13 +23,14 @@ t_chunk	*ft_chunk_init(const char *name, uint32_t elem_size)
 	chunk = malloc(sizeof(*chunk));
 	if (chunk && name)
 	{
+		ft_memzero(chunk, sizeof(t_chunk));
 		offset = ft_twos_power_raise(elem_size);
 		chunk->capacity = FT_CHUNK_DATA_CAP / offset;
 		chunk->alignment = offset;
 		chunk->elem_size = elem_size + !elem_size;
-		chunk->size = 0;
+		chunk->iterator.start = (void *)&chunk->data;
+		chunk->iterator.end = ft_chunk_at(chunk, chunk->capacity - 1);
 		ft_memcopy(chunk->name, (void *)name, ft_min(ft_strsize(name), 15));
-		ft_memzero(chunk->data, FT_CHUNK_DATA_CAP);
 		if (!chunk->alignment || !chunk->capacity)
 		{
 			free(chunk);
@@ -51,7 +52,7 @@ void	ft_chunk_clear(t_chunk *chunk, uint32_t flags)
 	if (flags & FT_CHUNK_WIPE)
 	{
 		chunk->size -= param;
-		ptr = (void *)(&chunk->data + chunk->alignment * (chunk->size - 1));
+		ptr = ft_chunk_at(chunk, chunk->size - 1);
 		ft_memzero(ptr, param * chunk->alignment);
 	}
 	if (flags & FT_CHUNK_NULL)
@@ -69,7 +70,7 @@ void	*ft_chunk_alloc(t_chunk *chunk)
 	{
 		if (chunk->size >= chunk->capacity)
 			return (ptr);
-		ptr = (void *)(&chunk->data + chunk->alignment * chunk->size);
+		ptr = ft_chunk_at(chunk, chunk->size);
 		chunk->size++;
 	}
 	return (ptr);
@@ -86,7 +87,7 @@ void	*ft_chunk_push(t_chunk *chunk, void *elem, uint32_t elem_size)
 			return (ptr);
 		if (chunk->size >= chunk->capacity)
 			return (ptr);
-		ptr = (void *)(&chunk->data) + chunk->alignment * chunk->size;
+		ptr = ft_chunk_at(chunk, chunk->size);
 		chunk->size++;
 		ft_memcopy(ptr, elem, elem_size);
 	}
@@ -103,7 +104,7 @@ void	*ft_chunk_pop(t_chunk *chunk, void *elem)
 		if (chunk->size == 0)
 			return (ptr);
 		chunk->size--;
-		ptr = (void *)(&chunk->data + chunk->alignment * chunk->size);
+		ptr = ft_chunk_at(chunk, chunk->size);
 		ft_memcopy(elem, ptr, chunk->elem_size);
 	}
 	return (elem);
