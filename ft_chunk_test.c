@@ -25,7 +25,7 @@ int	main(void)
 
 	floats = ft_chunk_init("floats", sizeof(float));
 	i = 0;
-	while (i < 1024)
+	while (i < 5000)
 	{
 		tmp = 3.14 * i;
 		if (!ft_chunk_push(floats, &tmp, sizeof(tmp)))

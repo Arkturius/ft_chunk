@@ -41,8 +41,9 @@ typedef struct s_chunk
 	uint32_t		size;
 	uint32_t		alignment;
 	uint32_t		elem_size;
-	char			name[16];
+	char			name[8];
 	t_chunk_iter	iterator;
+	struct s_chunk	*next;
 	uint8_t			data[FT_CHUNK_DATA_CAP];
 }	t_chunk;
 
